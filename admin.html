@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fdf6f0; /* ivory background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Login Box */
+        .login-box {
+            background: #ffffff;
+            width: 320px;
+            padding: 35px 25px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
+            text-align: center;
+            border-top: 5px solid #008080; /* teal accent */
+            transition: 0.3s;
+        }
+
+        .login-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 15px 30px rgba(0,0,0,0.18);
+        }
+
+        /* Icon */
+        .icon {
+            font-size: 50px;
+            color: #008080;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #008080;
+            margin-bottom: 20px;
+        }
+
+        /* Inputs */
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #008080;
+            box-shadow: 0 0 5px rgba(0,128,128,0.25);
+        }
+
+        /* Button */
+        button {
+            width: 95%;
+            padding: 10px;
+            background-color: #008080; /* teal */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #006666;
+            transform: scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <div class="icon">🔐</div>
+
+        <h2>Admin Login</h2>
+
+        <input type="text" id="user" placeholder="Enter Admin Username">
+        <input type="password" id="pass" placeholder="Enter Password">
+
+        <button onclick="login()">Login</button>
+
+    </div>
+
+    <script>
+        function login() {
+            var u = document.getElementById("user").value;
+            var p = document.getElementById("pass").value;
+
+            if(u == "admin" && p == "123") {
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Invalid Admin Credentials");
+            }
+        }
+    </script>
+
+</body>
+</html>
