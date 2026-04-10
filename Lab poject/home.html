@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OurStyle</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#fdf6f0;
+}
+
+/* NAVBAR */
+.navbar{
+background:#008080;
+color:white;
+padding:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{font-size:40px;font-weight:bold}
+
+.search{
+padding:6px;
+border:none;
+border-radius:5px;
+width:150px;
+}
+
+/* NAV BUTTON */
+.nav-btn{
+background:#fffaf5;
+color:#008080;
+padding:6px 10px;
+margin:0 5px;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.nav-btn:hover{
+transform:scale(1.1);
+background:#e8f5f5;
+}
+
+/* CART COUNT */
+.cart-count{
+background:red;
+color:white;
+border-radius:50%;
+padding:2px 6px;
+font-size:10px;
+}
+.detail-box button{
+margin-top:10px;
+}
+#cart{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.cart-box{
+background:white;
+padding:20px;
+border-radius:10px;
+width:400px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.cart-buttons{
+display:flex;
+justify-content:center;
+gap:15px; /* gap between buttons */
+margin-top:15px;
+}
+
+.cart-buttons button{
+width:auto; /* full width remove */
+padding:8px 15px;
+}
+
+/* PAGES */
+.page{display:none;padding:15px}
+.active{display:block}
+
+/* BANNER */
+.banner{
+position:relative;
+}
+
+.banner img{
+width:100%;
+height:400px;
+object-fit:cover;
+}
+
+.banner-text{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+color:white;
+font-size:30px;
+font-weight:bold;
+padding:10px 20px;
+border-radius:10px;
+}
+
+/* ICONS */
+.icons{
+display:flex;
+justify-content:center;
+gap:25px;
+margin:20px;
+}
+
+.icon{
+text-align:center;
+cursor:pointer;
+}
+
+.icon img{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #008080;
+transition:0.3s;
+}
+
+.icon img:hover{
+transform:scale(1.1);
+}
+
+.icon p{
+margin-top:5px;
+color:#008080;
+font-weight:bold;
+}
+
+/* LAYOUT */
+.container{display:flex}
+
+/* SIDEBAR */
+.sidebar{
+width:180px;
+background:#008080;
+padding:10px;
+border-radius:10px;
+}
+
+.side-box{
+background:#fffaf5;
+color:#008080;
+margin:10px;
+padding:10px;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+text-align:center;
+}
+
+.side-box:hover{
+background:#e8f5f5;
+}
+
+/* PRODUCTS */
+.products{
+flex:1;
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+justify-content:center;
+}
+
+.card{
+background:white;
+width:200px;
+padding:10px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+.qty-box{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+margin:15px 0;
+}
+
+.qty-btn{
+width:40px;
+height:30px;
+font-size:16px;
+padding:0;
+border-radius:5px;
+}
+
+#qty{
+min-width:20px;
+text-align:center;
+font-weight:bold;
+font-size:16px;
+}
+.qty-btn:hover{
+transform:scale(1.1);
+background:#006666;
+}
+
+/* BUTTON */
+button{
+background:#008080;
+color:white;
+border:none;
+padding:6px;
+width:100%;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#006666;
+transform:scale(1.05);
+}
+
+/* DETAIL */
+.detail{
+display:none;
+justify-content:center;
+gap:15px;
+}
+.detail-box button{
+margin-top:10px;
+}
+
+.detail img{width:350px}
+
+.detail-box{
+background:white;
+padding:10px;
+border-radius:5px;
+width:350px;
+}
+
+/* CART */
+.cart-item{
+background:white;
+margin:10px;
+padding:10px;
+border-radius:8px;
+display:flex;
+justify-content:space-between;
+}
+
+/* SMALL BOX */
+.box{
+background:white;
+padding:15px;
+border-radius:10px;
+width:300px;
+margin:auto;
+}
+
+/* FOOTER */
+.footer{
+background:#008080;
+color:white;
+text-align:center;
+padding:10px;
+margin-top:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+<div class="logo">OurStyle</div>
+
+<input class="search" id="search" placeholder="Search..." onkeyup="searchProduct()">
+
+<div>
+<span class="nav-btn" onclick="showPage('home')">Home</span>
+<span class="nav-btn" onclick="showPage('contact')">Contact</span>
+<span class="nav-btn" onclick="showPage('cart')">🛒 
+<span id="count" class="cart-count">0</span>
+</span>
+</div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="page active">
+
+<h2 style="text-align:center;color:#008080;">Welcome to OurStyle</h2>
+
+<div class="banner">
+    <img src="images/banner.jpeg">
+    <div class="banner-text">Unstitched Collection</div>
+</div>
+
+<!-- ✅ ICONS WITH IMAGES -->
+<div class="icons">
+
+<div class="icon" onclick="filterProducts('all')">
+<img src="images/all.jpeg">
+<p>All</p>
+</div>
+
+<div class="icon" onclick="filterProducts('men')">
+<img src="images/m1.jpeg">
+<p>Men</p>
+</div>
+
+<div class="icon" onclick="filterProducts('women')">
+<img src="images/w1.jpeg">
+<p>Women</p>
+</div>
+
+</div>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<div class="side-box" onclick="filterProducts('all')">All</div>
+<div class="side-box" onclick="filterProducts('men')">Men</div>
+<div class="side-box" onclick="filterProducts('women')">Women</div>
+<div class="side-box" onclick="window.location.href='index.html'">⬅ Back</div>
+</div>
+
+<!-- PRODUCTS -->
+<div id="products" class="products">
+
+<div class="card men">
+<img src="images/m1.jpeg">
+<h4 class="name">Men Shirt</h4>
+<p>Rs 1200</p>
+<p style="font-size:12px;color:gray;">100% Polyester | No Bleach | Dry Clean</p>
+<button onclick="viewDetail('images/m1.jpeg','Men Shirt','1200')">View</button>
+</div>
+<div class="card men">
+<img src="images/m2.jpeg">
+<h4 class="name">Suit</h4>
+<p>Rs 2500</p>
+<p style="font-size:12px;color:gray;">100% Polyester | No Bleach | Dry Clean</p>
+<button onclick="viewDetail('images/m2.jpeg','Suit','2500')">View</button>
+</div>
+
+
+<div class="card women">
+<img src="images/w1.jpeg">
+<h4 class="name">Party wear</h4>
+<p>Rs 4500</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w1.jpeg','Party wear','4500')">View</button>
+</div>
+<div class="card women">
+<img src="images/w2.jpeg">
+<h4 class="name">Casual</h4>
+<p>Rs 3000</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w1.jpeg','Casual','3000')">View</button>
+</div>
+<div class="card women">
+<img src="images/w3.jpeg">
+<h4 class="name">Party wear</h4>
+<p>Rs 5000</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w3.jpeg','Party wear','5000')">View</button>
+</div>
+<div class="card women">
+<img src="images/w4.jpeg">
+<h4 class="name">Party wear</h4>
+<p>Rs 4500</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w4.jpeg','Party wear','4500')">View</button>
+</div>
+<div class="card women">
+<img src="images/w5.jpeg">
+<h4 class="name">Casual</h4>
+<p>Rs 4500</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w5.jpeg','Casual','4500')">View</button>
+</div>
+<div class="card women">
+<img src="images/w6.jpeg">
+<h4 class="name">Casual</h4>
+<p>Rs 2500</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w6.jpeg','Casual','2500')">View</button>
+</div>
+<div class="card women">
+<img src="images/w7.jpeg">
+<h4 class="name">Casual</h4>
+<p>Rs 2500</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w7.jpeg','Casual','2500')">View</button>
+</div>
+<div class="card women">
+<img src="images/w8.jpeg">
+<h4 class="name">Dress</h4>
+<p>Rs 2500</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w8.jpeg','Dress','2500')">View</button>
+</div>
+<div class="card women">
+<img src="images/w9.jpeg">
+<h4 class="name">Dress</h4>
+<p>Rs 5000</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w9.jpeg','Dress','5000')">View</button>
+</div>
+<div class="card women">
+<img src="images/w10.jpeg">
+<h4 class="name">Maxi</h4>
+<p>Rs 9000</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w10.jpeg','Maxi','9000')">View</button>
+</div>
+<div class="card women">
+<img src="images/w11.jpeg">
+<h4 class="name">Langha</h4>
+<p>Rs 70000</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold | Don't use bleach</p>
+<button onclick="viewDetail('images/w11.jpeg','Langha','70000')">View</button>
+</div>
+<div class="card women">
+<img src="images/w12.jpeg">
+<h4 class="name">Langha</h4>
+<p>Rs 50000</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w12.jpeg','Langha','50000')">View</button>
+</div>
+<div class="card women">
+<img src="images/w13.jpeg">
+<h4 class="name">Maxi</h4>
+<p>Rs 65000</p>
+<p style="font-size:12px;color:gray;">Soft Fabric | Wash Cold</p>
+<button onclick="viewDetail('images/w13.jpeg','Maxi','65000')">View</button>
+</div>
+</div>
+
+<!-- DETAIL -->
+<div id="detail" class="detail">
+<img id="dimg">
+<div class="detail-box">
+<h3 id="dname"></h3>
+<p id="dprice"></p>
+<div class="qty-box">
+    <button class="qty-btn" onclick="changeQty(-1)">-</button>
+    <span id="qty">1</span>
+    <button class="qty-btn" onclick="changeQty(1)">+</button>
+</div>
+
+<button onclick="addToCart()">Add to Cart</button>
+<button onclick="backHome()">Back</button>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+<div class="box">
+<h3>Contact</h3>
+<input placeholder="Name"><br><br>
+<input placeholder="Email"><br><br>
+<input placeholder="Address"><br><br>
+<input placeholder="Phone"><br><br>
+<button>Send</button>
+</div>
+</div>
+
+<!-- CART -->
+<div id="cart" class="page">
+
+<h2>Cart</h2>
+
+<div class="cart-box">
+<div id="cartItems"></div>
+
+<div class="cart-buttons">
+<button onclick="showPage('home')">Continue Shopping</button>
+<button onclick="showPage('checkout')">Checkout</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- CHECKOUT -->
+<div id="checkout" class="page">
+<div class="box">
+<h3>Checkout</h3>
+<input placeholder="Name"><br><br>
+<input placeholder="Address"><br><br>
+
+<p>Select Payment:</p>
+<input type="radio" name="pay"> Advance<br>
+<input type="radio" name="pay"> Cash on Delivery<br><br>
+
+<button onclick="placeOrder()">Place Order</button>
+</div>
+</div>
+
+<div class="footer">
+OurStyle © 2026 
+</div>
+
+<script>
+let cart=[];
+let qty=1;
+let currentName="",currentPrice="";
+
+function showPage(p){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+document.getElementById(p).classList.add('active');
+}
+
+function filterProducts(type){
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=(type==='all'||c.classList.contains(type))?'block':'none';
+});
+}
+
+function viewDetail(img,name,price){
+document.getElementById('products').style.display='none';
+document.getElementById('detail').style.display='flex';
+
+dimg.src=img;
+dname.innerText=name;
+dprice.innerText="Rs "+price;
+
+currentName=name;
+currentPrice=price;
+qty=1;
+qtyText();
+}
+
+function qtyText(){
+document.getElementById('qty').innerText=qty;
+}
+
+function changeQty(x){
+qty+=x;
+if(qty<1)qty=1;
+qtyText();
+}
+
+function backHome(){
+products.style.display='flex';
+detail.style.display='none';
+}
+
+function addToCart(){
+cart.push({name:currentName,qty:qty,price:currentPrice});
+updateCart();
+alert("Added to cart");
+}
+
+function updateCart(){
+count.innerText=cart.length;
+
+let div=cartItems;
+div.innerHTML="";
+
+cart.forEach((item,i)=>{
+div.innerHTML+=`
+<div class="cart-item">
+<span>${item.name} (${item.qty}) - Rs ${item.price}</span>
+<button onclick="removeItem(${i})">X</button>
+</div>`;
+});
+}
+
+function removeItem(i){
+cart.splice(i,1);
+updateCart();
+}
+
+function placeOrder(){
+alert("Order Successfully Placed ✅");
+cart=[];
+updateCart();
+showPage('home');
+}
+
+function searchProduct(){
+let val=search.value.toLowerCase();
+
+document.querySelectorAll(".card").forEach(card=>{
+let name=card.querySelector(".name").innerText.toLowerCase();
+card.style.display=name.includes(val)?'block':'none';
+});
+}
+</script>
+
+</body>
+</html>

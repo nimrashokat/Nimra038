@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OurStyle Admin Dashboard</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:#f7f3ee;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:200px;
+height:100vh;
+background:#008080;
+color:white;
+position:fixed;
+padding:20px;
+}
+
+.sidebar h2{text-align:center}
+
+.sidebar div{
+background:white;
+color:#008080;
+margin:10px 0;
+padding:10px;
+text-align:center;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.sidebar div:hover{
+transform:scale(1.05);
+}
+
+/* MAIN */
+.main{
+margin-left:240px;
+padding:20px;
+}
+
+/* CARDS */
+.cards{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.card{
+background:#008080;
+color:white;
+padding:15px;
+border-radius:12px;
+width:180px;
+text-align:center;
+}
+
+/* SECTIONS */
+.section{display:none}
+.active{display:block}
+
+/* PRODUCTS */
+.products{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+}
+
+.product{
+background:white;
+padding:10px;
+border-radius:10px;
+width:170px;
+text-align:center;
+}
+
+.product img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:6px;
+}
+
+/* TABLE */
+table{
+width:100%;
+background:white;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+/* BUTTON */
+button{
+background:#008080;
+color:white;
+border:none;
+padding:6px 10px;
+margin:3px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#006666;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+}
+
+.modal-content{
+background:white;
+padding:20px;
+width:400px;
+border-radius:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>OurStyle</h2>
+
+<div onclick="show('dashboard')">Dashboard</div>
+<div onclick="show('products')">Manage Products</div>
+<div onclick="show('orders')">Manage Orders</div>
+<div onclick="show('sales')">Manage Sales</div>
+<div onclick="logout()">Logout</div>
+</div>
+
+<div class="main">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+
+<h2>Dashboard</h2>
+
+<div class="cards">
+<div class="card">Products <br><b id="tp"></b></div>
+<div class="card">Orders <br><b id="to"></b></div>
+<div class="card">Delivered <br><b id="del"></b></div>
+<div class="card">Pending <br><b id="pen"></b></div>
+</div>
+
+<h3>Recent Orders <button onclick="view('recent')">View All</button></h3>
+<table><tbody id="recent"></tbody></table>
+
+<h3>Latest Orders <button onclick="view('latest')">View All</button></h3>
+<table><tbody id="latest"></tbody></table>
+
+</div>
+
+<!-- PRODUCTS -->
+<div id="products" class="section">
+
+<h2>Manage Products</h2>
+
+<input id="search" placeholder="Search..." onkeyup="render()">
+
+<div id="plist" class="products"></div>
+
+</div>
+
+<!-- ORDERS -->
+<div id="orders" class="section">
+
+<h2>Manage Orders</h2>
+
+<table>
+<tr><th>Product</th><th>Status</th><th>Action</th></tr>
+<tbody id="otable"></tbody>
+</table>
+
+</div>
+
+<!-- SALES -->
+<div id="sales" class="section">
+
+<h2>Manage Sales</h2>
+
+<div class="cards">
+<div class="card">Men Collection <br>Active</div>
+<div class="card">Women Collection <br>Active</div>
+</div>
+
+<h3>Sales Chart</h3>
+<canvas id="chart" width="400" height="200"></canvas>
+
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<h3>All Orders</h3>
+<div id="all"></div>
+<button onclick="closeM()">Close</button>
+</div>
+</div>
+
+<script>
+
+/* =====================
+   PRODUCTS (CODE BASED)
+===================== */
+let products=[
+{name:"Shirt",price:1200,img:"images/m1.jpeg"},
+{name:"Dress",price:2000,img:"images/m2.jpeg"},
+{name:"Party wear",price:4500,img:"images/w1.jpeg"},
+{name:"casual",price:3000,img:"images/w2.jpeg"},
+{name:"Party wear",price:5000,img:"images/w3.jpeg"},
+{name:"party wear",price:4500,img:"images/w4.jpeg"},
+{name:"Casual",price:4500,img:"images/w5.jpeg"},
+{name:"Maxi",price:9000,img:"images/w10.jpeg"},
+{name:"Dress",price:2500,img:"images/w8.jpeg"},
+{name:"Langha",price:70000,img:"images/w11.jpeg"},
+{name:"Maxi",price:65000,img:"images/w13.jpeg"},
+{name:"Dress",price:5000,img:"images/w9.jpeg"},
+{name:"Langha",price:50000,img:"images/w12.jpeg"},
+{name:"Casual",price:2500,img:"images/w6.jpeg"},
+{name:"Casual",price:2500,img:"images/w7.jpeg"},
+];
+
+/* ORDERS */
+let orders=JSON.parse(localStorage.getItem("cart"))||["Shirt","Shoes","Watch"];
+
+let editIndex=null;
+
+/* NAV */
+function show(id){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+/* PRODUCTS RENDER */
+function render(){
+let s=document.getElementById("search").value?.toLowerCase()||"";
+let box=document.getElementById("plist");
+box.innerHTML="";
+
+products.forEach((p,i)=>{
+if(p.name.toLowerCase().includes(s)){
+box.innerHTML+=`
+<div class="product">
+<img src="${p.img}">
+<h4>${p.name}</h4>
+<p>Rs ${p.price}</p>
+
+<button onclick="edit(${i})">Edit</button>
+<button onclick="del(${i})">Delete</button>
+</div>`;
+}
+});
+}
+
+/* EDIT */
+function edit(i){
+let n=prompt("Name",products[i].name);
+let p=prompt("Price",products[i].price);
+let img=prompt("Image Path",products[i].img);
+
+products[i]={name:n,price:p,img:img};
+render();
+update();
+}
+
+/* DELETE */
+function del(i){
+products.splice(i,1);
+render();
+update();
+}
+
+/* ORDERS TABLE */
+function renderOrders(){
+let t="";
+orders.forEach((o,i)=>{
+t+=`
+<tr>
+<td>${o}</td>
+<td>${i%2==0?"Delivered":"Pending"}</td>
+<td>
+<button onclick="deliver(${i})">Deliver</button>
+<button onclick="remove(${i})">Remove</button>
+</td>
+</tr>`;
+});
+document.getElementById("otable").innerHTML=t;
+}
+
+function deliver(i){
+alert("Marked Delivered");
+}
+
+function remove(i){
+orders.splice(i,1);
+localStorage.setItem("cart",JSON.stringify(orders));
+update();
+}
+
+/* DASHBOARD UPDATE */
+function update(){
+
+document.getElementById("tp").innerText=products.length;
+document.getElementById("to").innerText=orders.length;
+
+let d=Math.floor(orders.length/2);
+document.getElementById("del").innerText=d;
+document.getElementById("pen").innerText=orders.length-d;
+
+/* RECENT */
+let r="";
+orders.slice(-3).forEach(o=>{
+r+=`<tr><td>${o}</td><td>Pending</td></tr>`;
+});
+document.getElementById("recent").innerHTML=r;
+
+/* LATEST */
+let l="";
+orders.slice(-5).forEach(o=>{
+l+=`<tr><td>${o}</td><td>New</td></tr>`;
+});
+document.getElementById("latest").innerHTML=l;
+
+/* ORDERS */
+renderOrders();
+
+/* CHART */
+let c=document.getElementById("chart").getContext("2d");
+c.clearRect(0,0,400,200);
+c.fillStyle="#008080";
+c.fillRect(50,150,50,-orders.length*5);
+c.fillRect(150,150,50,-d*10);
+}
+
+/* VIEW ALL */
+function view(type){
+document.getElementById("modal").style.display="flex";
+
+let data=(type=="recent")?orders.slice(-3):orders.slice(-5);
+
+let html="";
+data.forEach(o=>{
+html+=`<p>${o}</p>`;
+});
+
+document.getElementById("all").innerHTML=html;
+}
+
+function closeM(){
+document.getElementById("modal").style.display="none";
+}
+
+/* LOGOUT */
+function logout(){
+window.location.href="index.html";
+}
+
+/* INIT */
+render();
+update();
+
+</script>
+
+</body>
+</html>

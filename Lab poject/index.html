@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OurStyle</title>
+
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #fdf6f0;
+            text-align: center;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #008080, #00a6a6);
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin-top: 8px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* CONTAINER */
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        /* CARD */
+        .box {
+            background: #fffaf5;
+            width: 280px;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0,0,0,0.08);
+            border-top: 5px solid #008080;
+            transition: 0.3s;
+        }
+
+        /* HOVER EFFECT */
+        .box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .box i {
+            font-size: 40px;
+            color: #008080;
+            margin-bottom: 15px;
+        }
+
+        .box h2 {
+            color: #008080;
+            margin-bottom: 10px;
+        }
+
+        .box p {
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* BUTTON */
+        .box a {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #008080, #00a6a6);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .box a:hover {
+            background: linear-gradient(135deg, #006666, #008080);
+            transform: scale(1.05);
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 80px;
+            padding: 15px;
+            background: #008080;
+            color: white;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>Welcome to OurStyle</h1>
+        <p>Your Premium Fashion Destination ✨</p>
+    </div>
+
+    <!-- CARDS -->
+    <div class="container">
+
+        <!-- USER -->
+        <div class="box">
+            <i class="fas fa-user"></i>
+            <h2>User Panel</h2>
+            <p>Explore latest collections & shop your favorite styles</p>
+            <a href="home.html">Login as User</a>
+            
+        </div>
+
+        <!-- ADMIN -->
+        <div class="box">
+            <i class="fas fa-user-cog"></i>
+            <h2>Admin Panel</h2>
+            <p>Manage products, orders & website dashboard</p>
+            <a href="admin.html">Login as Admin</a>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © 2026 OurStyle | Designed with 💙
+    </div>
+
+</body>
+</html>
